@@ -4,24 +4,24 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Models;
 
-    public class ReviewConfiguration : IEntityTypeConfiguration<Review>
+    public class EventConfiguration : IEntityTypeConfiguration<Event>
     {
-        public void Configure(EntityTypeBuilder<Review> builder)
+        public void Configure(EntityTypeBuilder<Event> builder)
         {
-            builder.HasKey(r => r.RecordId);
+            builder.HasKey(g => g.RecordId);
 
-            builder.Property(r => r.RecordId)
+            builder.Property(g => g.RecordId)
                 .ValueGeneratedOnAdd()
                 .IsRequired();
 
-            builder.Property(r => r.Title)
+            builder.Property(g => g.Title)
                 .HasMaxLength(128)
                 .IsRequired();
 
-            builder.Property(r => r.ReviewText)
+            builder.Property(g => g.Description)
                 .IsRequired();
 
-            builder.Property(r => r.Date)
+            builder.Property(g => g.Date)
                 .HasColumnType("datetime2")
                 .IsRequired();
         }

@@ -1,11 +1,9 @@
 namespace ConestogaVirtualGameStore.Web.Data
 {
+    using Configuration;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Models;
-    using Presentation.Data.Configuration;
-    using Presentation.Models;
-    using Web.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -20,9 +18,11 @@ namespace ConestogaVirtualGameStore.Web.Data
 
             builder.ApplyConfiguration(new GameConfiguration());
             builder.ApplyConfiguration(new ReviewConfiguration());
+            builder.ApplyConfiguration(new EventConfiguration());
         }
 
         public DbSet<Game> Games { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Event> Events { get; set; }
     }
 }

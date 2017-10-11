@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace ConestogaVirtualGameStore.Web.Data.Migrations
+namespace ConestogaVirtualGameStore.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171010235342_sdd")]
-    partial class sdd
+    [Migration("20171011005645_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,64 +20,6 @@ namespace ConestogaVirtualGameStore.Web.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ConestogaVirtualGameStore.Presentation.Models.Game", b =>
-                {
-                    b.Property<long>("RecordId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired();
-
-                    b.Property<string>("Developer")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<string>("Publisher")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.HasKey("RecordId");
-
-                    b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("ConestogaVirtualGameStore.Presentation.Models.Review", b =>
-                {
-                    b.Property<long>("RecordId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("Author");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("GameId");
-
-                    b.Property<int>("Rating");
-
-                    b.Property<string>("ReviewText")
-                        .IsRequired();
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.HasKey("RecordId");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("Reviews");
-                });
 
             modelBuilder.Entity("ConestogaVirtualGameStore.Web.Models.ApplicationUser", b =>
                 {
@@ -128,6 +70,68 @@ namespace ConestogaVirtualGameStore.Web.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("ConestogaVirtualGameStore.Web.Models.Game", b =>
+                {
+                    b.Property<long>("RecordId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Developer")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ImageFileName")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("RecordId");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("ConestogaVirtualGameStore.Web.Models.Review", b =>
+                {
+                    b.Property<long>("RecordId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("Author");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("GameId");
+
+                    b.Property<int>("Rating");
+
+                    b.Property<string>("ReviewText")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("RecordId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -238,9 +242,9 @@ namespace ConestogaVirtualGameStore.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ConestogaVirtualGameStore.Presentation.Models.Review", b =>
+            modelBuilder.Entity("ConestogaVirtualGameStore.Web.Models.Review", b =>
                 {
-                    b.HasOne("ConestogaVirtualGameStore.Presentation.Models.Game", "Game")
+                    b.HasOne("ConestogaVirtualGameStore.Web.Models.Game", "Game")
                         .WithMany("Reviews")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade);
