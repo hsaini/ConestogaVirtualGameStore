@@ -1,5 +1,5 @@
 # Conestoga Virtual Game Store
-Online games sales application. This is cool.
+Online games sales application that rocks!
 
 # Instructions
 
