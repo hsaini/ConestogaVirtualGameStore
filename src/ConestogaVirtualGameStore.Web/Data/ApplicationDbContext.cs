@@ -1,3 +1,5 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ConestogaVirtualGameStore.Web.Models;
 namespace ConestogaVirtualGameStore.Web.Data
 {
     using Configuration;
@@ -9,6 +11,10 @@ namespace ConestogaVirtualGameStore.Web.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
+        {
+        }
+
+        public ApplicationDbContext()
         {
         }
 
@@ -24,5 +30,6 @@ namespace ConestogaVirtualGameStore.Web.Data
         public DbSet<Game> Games { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<ConestogaVirtualGameStore.Web.Models.GameList> GameList { get; set; }
     }
 }
