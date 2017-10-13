@@ -6,6 +6,7 @@ namespace ConestogaVirtualGameStore.Tests
     using Web.Controllers;
     using Web.Models;
     using Xunit;
+    using System.Threading.Tasks;
 
     public class GameControllerTests : IClassFixture<DatabaseFixture>
     {
@@ -74,7 +75,7 @@ namespace ConestogaVirtualGameStore.Tests
                 resultGame.Description = "Description Changed";
 
                 var result = controller.Edit(resultGame.RecordId, resultGame).Result as ViewResult;
-                
+
                 Assert.Equal("Description Changed", resultGame.Description);
             }
         }
@@ -82,6 +83,8 @@ namespace ConestogaVirtualGameStore.Tests
         [Fact]
         public void DeleteConfirmed_DeleteAGame_OneGameIsDeleted()
         {
+            Task.Run(() =>
+            { 
             using (var controller = new GameController(this.fixture.context))
             {
                 var result = controller.DeleteConfirmed(3).Result as ViewResult;
@@ -90,7 +93,8 @@ namespace ConestogaVirtualGameStore.Tests
 
                 Assert.Equal(5, games.Count);
             }
-        }
+        }).Wait();
+    }
 
         public GameControllerTests(DatabaseFixture fixture)
         {

@@ -6,12 +6,14 @@
     using Web.Controllers;
     using Web.Models;
     using Xunit;
+    using System.Threading.Tasks;
 
     public class EventControllerTests : IClassFixture<DatabaseFixture>
     {
         [Fact]
         public void Index_ReturnsAllEvents_AllEventsAreReturned()
         {
+
             using (var controller = new EventController(this.fixture.context))
             {
                 var result = controller.Index().Result as ViewResult;
@@ -24,17 +26,20 @@
         [Fact]
         public void Details_ReturnOneEvent_OneEventIsReturned()
         {
-            using (var controller = new EventController(this.fixture.context))
+            Task.Run(() =>
             {
-                var result = controller.Details(1).Result as ViewResult;
+                using (var controller = new EventController(this.fixture.context))
+                {
+                    var result = controller.Details(1).Result as ViewResult;
 
-                Assert.NotNull(result);
-                Assert.NotNull(result.Model);
+                    Assert.NotNull(result);
+                    Assert.NotNull(result.Model);
 
-                var model = result.Model as Event;
+                    var model = result.Model as Event;
 
-                Assert.Equal("Event1", model.Title);
-            }
+                    Assert.Equal("Event1", model.Title);
+                }
+            }).Wait();
         }
 
         [Fact]
@@ -78,14 +83,19 @@
         [Fact]
         public void DeleteConfirmed_DeleteAnEvent_OneEventIsDeleted()
         {
-            using (var controller = new EventController(this.fixture.context))
+
+            Task.Run(() =>
             {
-                var result = controller.DeleteConfirmed(3).Result as ViewResult;
+                using (var controller = new EventController(this.fixture.context))
+                {
+                    Assert.Equal(5, this.fixture.context.Events.Count());
+                    var result = controller.DeleteConfirmed(3).Result as ViewResult;
+                    Assert.Equal(4, this.fixture.context.Events.Count());
+                    var event3 = this.fixture.context.Events.FirstOrDefault(e => e.RecordId == 3);
+                    Assert.Null(event3);
+                }
+            }).Wait();
 
-                var event3 = this.fixture.context.Events.FirstOrDefault(e => e.RecordId == 3);
-
-                Assert.Null(event3);
-            }
         }
 
         public EventControllerTests(DatabaseFixture fixture)
