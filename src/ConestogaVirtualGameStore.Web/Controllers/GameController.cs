@@ -1,5 +1,6 @@
 ﻿namespace ConestogaVirtualGameStore.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
@@ -96,6 +97,7 @@
             {
                 try
                 {
+                    game.ImageFileName = String.Empty;
                     _context.Update(game);
                     await _context.SaveChangesAsync();
                 }
