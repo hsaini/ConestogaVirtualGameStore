@@ -1,18 +1,40 @@
 namespace ConestogaVirtualGameStore.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Web.Controllers;
     using Web.Models;
     using Xunit;
+    using Microsoft.EntityFrameworkCore;
+    using Moq;
+    using Web.Data;
+    using Web.Repository;
 
-    public class GameControllerTests : IClassFixture<DatabaseFixture>
+    public class GameControllerTests
     {
         [Fact]
         public void Index_ReturnsAllGame_AllGamesAreReturned()
         {
-            using (var controller = new GameController(this.fixture.context))
+            var mock = new Mock<IGameRepository>();
+
+            mock.Setup(g => g.GetGames()).Returns(new List<Game>
+            {
+                new Game
+                {
+                    RecordId = 1,
+                    Title = "Test",
+                    Description = "Test",
+                    Date = DateTime.Now,
+                    Developer = "Test",
+                    Publisher = "Test",
+                    Price = 100,
+                    ImageFileName = ""
+                }
+            });
+
+            using (var controller = new GameController(mock.Object))
             {
                 var result = controller.Index() as ViewResult;
 
@@ -24,7 +46,21 @@ namespace ConestogaVirtualGameStore.Tests
         [Fact]
         public void Details_ReturnOneGame_OneGameIsReturned()
         {
-            using (var controller = new GameController(this.fixture.context))
+            var mock = new Mock<IGameRepository>();
+
+            mock.Setup(g => g.GetGame(1)).Returns(new Game
+                {
+                    RecordId = 1,
+                    Title = "Game1",
+                    Description = "Test",
+                    Date = DateTime.Now,
+                    Developer = "Test",
+                    Publisher = "Test",
+                    Price = 100,
+                    ImageFileName = ""
+                });
+
+            using (var controller = new GameController(mock.Object))
             {
                 var result = controller.Details(1) as ViewResult;
 
@@ -32,7 +68,6 @@ namespace ConestogaVirtualGameStore.Tests
                 Assert.NotNull(result.Model);
 
                 var model = result.Model as Game;
-
                 Assert.Equal("Game1", model.Title);
             }
         }
@@ -40,63 +75,78 @@ namespace ConestogaVirtualGameStore.Tests
         [Fact]
         public void Create_CreateAGame_OneGameIsCreated()
         {
-            using (var controller = new GameController(this.fixture.context))
+            var mock = new Mock<IGameRepository>();
+
+            var game = new Game
             {
-                var game = new Game
-                {
-                    Title = "Game6",
-                    Description = "Description 6",
-                    Price = 100,
-                    Developer = "Developer 6",
-                    Publisher = "Publisher 6",
-                    ImageFileName = "",
-                    Date = DateTime.Now
-                };
+                Title = "Game6",
+                Description = "Description 6",
+                Price = 100,
+                Developer = "Developer 6",
+                Publisher = "Publisher 6",
+                ImageFileName = "",
+                Date = DateTime.Now
+            };
 
+            mock.Setup(g => g.AddGame(game));
+
+            using (var controller = new GameController(mock.Object))
+            {
                 var result = controller.Create(game) as ViewResult;
-
-                var resultGame = this.fixture.context.Games.FirstOrDefault(g => g.Title == "Game6");
-
-                Assert.NotNull(resultGame);
-                Assert.Equal("Game6", resultGame.Title);
+                Assert.Null(result);
             }
         }
 
         [Fact]
         public void Edit_EditAGame_OneGameIsEdited()
         {
-            using (var controller = new GameController(this.fixture.context))
+            var mock = new Mock<IGameRepository>();
+
+            var game = new Game
             {
-                var resultGame = this.fixture.context.Games.FirstOrDefault(g => g.Title == "Game2");
+                Title = "Game6",
+                Description = "Description 6",
+                Price = 100,
+                Developer = "Developer 6",
+                Publisher = "Publisher 6",
+                ImageFileName = "",
+                Date = DateTime.Now
+            };
 
-                Assert.NotNull(resultGame);
+            mock.Setup(g => g.UpdateGame(game));
 
-                resultGame.Description = "Description Changed";
+            using (var controller = new GameController(mock.Object))
+            {
+                var result = controller.Edit(game.RecordId, game) as ViewResult;
 
-                var result = controller.Edit(resultGame.RecordId, resultGame) as ViewResult;
-                
-                Assert.Equal("Description Changed", resultGame.Description);
+                Assert.Equal("Description 6", game.Description);
             }
         }
 
         [Fact]
         public void DeleteConfirmed_DeleteAGame_OneGameIsDeleted()
         {
-            using (var controller = new GameController(this.fixture.context))
+            var mock = new Mock<IGameRepository>();
+
+            var game = new Game
+            {
+                Title = "Game6",
+                Description = "Description 6",
+                Price = 100,
+                Developer = "Developer 6",
+                Publisher = "Publisher 6",
+                ImageFileName = "",
+                Date = DateTime.Now
+            };
+
+            mock.Setup(g => g.RemoveGame(game));
+
+            using (var controller = new GameController(mock.Object))
             {
                 var result = controller.DeleteConfirmed(3) as ViewResult;
 
-                var games = this.fixture.context.Games.ToList();
-
-                Assert.Equal(5, games.Count);
+                Assert.Null(result);
             }
         }
-
-        public GameControllerTests(DatabaseFixture fixture)
-        {
-            this.fixture = fixture;
-        }
-
-        private readonly DatabaseFixture fixture;
     }
 }

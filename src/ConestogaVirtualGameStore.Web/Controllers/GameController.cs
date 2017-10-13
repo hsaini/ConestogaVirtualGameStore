@@ -1,30 +1,25 @@
 ﻿namespace ConestogaVirtualGameStore.Web.Controllers
 {
     using System;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using Data;
     using Models;
+    using Repository;
 
     public class GameController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IGameRepository gameRepository;
 
-        public GameController(ApplicationDbContext context)
+        public GameController(IGameRepository gameRepository)
         {
-            _context = context;
+            this.gameRepository = gameRepository;
         }
 
-        // GET: Game
         public IActionResult Index()
         {
-            return View(_context.Games.ToList());
+            return View(this.gameRepository.GetGames());
         }
-
         
-        // GET: Game/Details/5
         public IActionResult Details(long? id)
         {
             if (id == null)
@@ -32,8 +27,7 @@
                 return NotFound();
             }
 
-            var game = _context.Games
-                .SingleOrDefault(m => m.RecordId == id);
+            var game = this.gameRepository.GetGame(id.Value);
 
             if (game == null)
             {
@@ -43,15 +37,11 @@
             return View(game);
         }
 
-        // GET: Game/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Game/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Title,Description,Price,Date,Developer,Publisher,RecordId")] Game game)
@@ -59,8 +49,8 @@
             if (ModelState.IsValid)
             {
                 game.ImageFileName = string.Empty;
-                _context.Add(game);
-                _context.SaveChanges();
+                this.gameRepository.AddGame(game);
+                this.gameRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(game);
@@ -74,7 +64,7 @@
                 return NotFound();
             }
 
-            var game = _context.Games.SingleOrDefault(m => m.RecordId == id);
+            var game = this.gameRepository.GetGame(id.Value);
             if (game == null)
             {
                 return NotFound();
@@ -99,8 +89,8 @@
                 try
                 {
                     game.ImageFileName = String.Empty;
-                    _context.Update(game);
-                    _context.SaveChangesAsync();
+                    this.gameRepository.UpdateGame(game);
+                    this.gameRepository.Save();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,8 +116,7 @@
                 return NotFound();
             }
 
-            var game = _context.Games
-                .SingleOrDefaultAsync(m => m.RecordId == id);
+            var game = this.gameRepository.GetGame(id.Value);
             if (game == null)
             {
                 return NotFound();
@@ -141,15 +130,17 @@
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(long id)
         {
-            var game = _context.Games.SingleOrDefault(m => m.RecordId == id);
-            _context.Games.Remove(game);
-            _context.SaveChanges();
+            var game = this.gameRepository.GetGame(id);
+
+            this.gameRepository.RemoveGame(game);
+            this.gameRepository.Save();
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool GameExists(long id)
         {
-            return _context.Games.Any(e => e.RecordId == id);
+            return this.gameRepository.Exists(id);
         }
     }
 }

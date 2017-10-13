@@ -6,12 +6,14 @@
     using Web.Controllers;
     using Web.Models;
     using Xunit;
+    using System.Threading.Tasks;
 
     public class EventControllerTests : IClassFixture<DatabaseFixture>
     {
         [Fact]
         public void Index_ReturnsAllEvents_AllEventsAreReturned()
         {
+
             using (var controller = new EventController(this.fixture.context))
             {
                 var result = controller.Index() as ViewResult;
@@ -79,9 +81,9 @@
         public void DeleteConfirmed_DeleteAnEvent_OneEventIsDeleted()
         {
             using (var controller = new EventController(this.fixture.context))
-            {
+            {               
                 var result = controller.DeleteConfirmed(3) as ViewResult;
-
+                
                 var event3 = this.fixture.context.Events.FirstOrDefault(e => e.RecordId == 3);
 
                 Assert.Null(event3);

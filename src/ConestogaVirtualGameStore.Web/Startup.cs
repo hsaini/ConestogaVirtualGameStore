@@ -14,6 +14,8 @@ using ConestogaVirtualGameStore.Web.Services;
 
 namespace ConestogaVirtualGameStore.Web
 {
+    using Repository;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -35,6 +37,7 @@ namespace ConestogaVirtualGameStore.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IGameRepository, GameRepository>();
 
             services.AddMvc();
         }
