@@ -32,6 +32,7 @@
 
             var game = await _context.Games
                 .SingleOrDefaultAsync(m => m.RecordId == id);
+
             if (game == null)
             {
                 return NotFound();
@@ -55,6 +56,7 @@
         {
             if (ModelState.IsValid)
             {
+                game.ImageFileName = string.Empty;
                 _context.Add(game);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
