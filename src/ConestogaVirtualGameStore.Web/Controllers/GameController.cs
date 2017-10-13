@@ -23,6 +23,7 @@
             return View(await _context.Games.ToListAsync());
         }
 
+        
         // GET: Game/Details/5
         public async Task<IActionResult> Details(long? id)
         {
