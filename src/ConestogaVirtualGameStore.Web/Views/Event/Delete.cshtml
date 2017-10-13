@@ -1,4 +1,4 @@
-﻿@model ConestogaVirtualGameStore.Web.Models.Game
+﻿@model ConestogaVirtualGameStore.Web.Models.Event
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,7 +8,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Game</h4>
+    <h4>Event</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -24,28 +24,10 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Developer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Developer)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Publisher)
         </dd>
     </dl>
     

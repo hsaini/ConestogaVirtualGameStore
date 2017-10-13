@@ -1,4 +1,4 @@
-﻿namespace ConestogaVirtualGameStore.Presentation.Models
+﻿namespace ConestogaVirtualGameStore.Web.Models
 {
     public class BaseModel
     {
