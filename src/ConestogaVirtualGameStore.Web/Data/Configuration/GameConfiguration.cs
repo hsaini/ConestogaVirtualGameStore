@@ -1,4 +1,4 @@
-﻿namespace ConestogaVirtualGameStore.Web.Data.Configuration
+﻿namespace ConestogaVirtualGameStore.Presentation.Data.Configuration
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -30,10 +30,6 @@
                 .IsRequired();
 
             builder.Property(g => g.Price)
-                .IsRequired();
-
-            builder.Property(g => g.ImageFileName)
-                .HasMaxLength(256)
                 .IsRequired();
 
             builder.Property(g => g.Date)

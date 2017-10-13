@@ -1,12 +1,15 @@
-﻿namespace ConestogaVirtualGameStore.Web.Controllers
-{
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Data;
-    using Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using ConestogaVirtualGameStore.Presentation.Models;
+using ConestogaVirtualGameStore.Web.Data;
 
+namespace ConestogaVirtualGameStore.Web.Controllers
+{
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;

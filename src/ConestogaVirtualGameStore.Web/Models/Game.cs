@@ -1,4 +1,4 @@
-﻿namespace ConestogaVirtualGameStore.Web.Models
+﻿namespace ConestogaVirtualGameStore.Presentation.Models
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,6 @@
         public DateTime Date { get; set; }
         public string Developer { get; set; }
         public string Publisher { get; set; }
-        public string ImageFileName { get; set; }
 
         public IList<Review> Reviews { get; set; }
     }

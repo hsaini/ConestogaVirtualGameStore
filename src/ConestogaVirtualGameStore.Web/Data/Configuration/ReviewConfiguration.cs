@@ -1,4 +1,4 @@
-﻿namespace ConestogaVirtualGameStore.Web.Data.Configuration
+﻿namespace ConestogaVirtualGameStore.Presentation.Data.Configuration
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
