@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ConestogaVirtualGameStore.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConestogaVirtualGameStore.Web.Controllers
 {
@@ -14,7 +15,7 @@ namespace ConestogaVirtualGameStore.Web.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "Member")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -28,7 +29,6 @@ namespace ConestogaVirtualGameStore.Web.Controllers
 
             return View();
         }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -7,7 +7,9 @@
     using Microsoft.EntityFrameworkCore;
     using Data;
     using Models;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize(Roles = "Employee")]
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;
