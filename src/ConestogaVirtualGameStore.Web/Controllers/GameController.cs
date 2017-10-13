@@ -18,22 +18,22 @@
         }
 
         // GET: Game
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Games.ToListAsync());
+            return View(_context.Games.ToList());
         }
 
         
         // GET: Game/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games
-                .SingleOrDefaultAsync(m => m.RecordId == id);
+            var game = _context.Games
+                .SingleOrDefault(m => m.RecordId == id);
 
             if (game == null)
             {
@@ -54,27 +54,27 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Price,Date,Developer,Publisher,RecordId")] Game game)
+        public IActionResult Create([Bind("Title,Description,Price,Date,Developer,Publisher,RecordId")] Game game)
         {
             if (ModelState.IsValid)
             {
                 game.ImageFileName = string.Empty;
                 _context.Add(game);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(game);
         }
 
         // GET: Game/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games.SingleOrDefaultAsync(m => m.RecordId == id);
+            var game = _context.Games.SingleOrDefault(m => m.RecordId == id);
             if (game == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Title,Description,Price,Date,Developer,Publisher,RecordId")] Game game)
+        public IActionResult Edit(long id, [Bind("Title,Description,Price,Date,Developer,Publisher,RecordId")] Game game)
         {
             if (id != game.RecordId)
             {
@@ -100,7 +100,7 @@
                 {
                     game.ImageFileName = String.Empty;
                     _context.Update(game);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,14 +119,14 @@
         }
 
         // GET: Game/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public IActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games
+            var game = _context.Games
                 .SingleOrDefaultAsync(m => m.RecordId == id);
             if (game == null)
             {
@@ -139,11 +139,11 @@
         // POST: Game/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public IActionResult DeleteConfirmed(long id)
         {
-            var game = await _context.Games.SingleOrDefaultAsync(m => m.RecordId == id);
+            var game = _context.Games.SingleOrDefault(m => m.RecordId == id);
             _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

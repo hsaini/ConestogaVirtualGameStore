@@ -14,7 +14,7 @@ namespace ConestogaVirtualGameStore.Tests
         {
             using (var controller = new GameController(this.fixture.context))
             {
-                var result = controller.Index().Result as ViewResult;
+                var result = controller.Index() as ViewResult;
 
                 Assert.NotNull(result);
                 Assert.True(string.IsNullOrEmpty(result.ViewName) || result.ViewName == "Index");
@@ -26,7 +26,7 @@ namespace ConestogaVirtualGameStore.Tests
         {
             using (var controller = new GameController(this.fixture.context))
             {
-                var result = controller.Details(1).Result as ViewResult;
+                var result = controller.Details(1) as ViewResult;
 
                 Assert.NotNull(result);
                 Assert.NotNull(result.Model);
@@ -53,7 +53,7 @@ namespace ConestogaVirtualGameStore.Tests
                     Date = DateTime.Now
                 };
 
-                var result = controller.Create(game).Result as ViewResult;
+                var result = controller.Create(game) as ViewResult;
 
                 var resultGame = this.fixture.context.Games.FirstOrDefault(g => g.Title == "Game6");
 
@@ -73,7 +73,7 @@ namespace ConestogaVirtualGameStore.Tests
 
                 resultGame.Description = "Description Changed";
 
-                var result = controller.Edit(resultGame.RecordId, resultGame).Result as ViewResult;
+                var result = controller.Edit(resultGame.RecordId, resultGame) as ViewResult;
                 
                 Assert.Equal("Description Changed", resultGame.Description);
             }
@@ -84,7 +84,7 @@ namespace ConestogaVirtualGameStore.Tests
         {
             using (var controller = new GameController(this.fixture.context))
             {
-                var result = controller.DeleteConfirmed(3).Result as ViewResult;
+                var result = controller.DeleteConfirmed(3) as ViewResult;
 
                 var games = this.fixture.context.Games.ToList();
 

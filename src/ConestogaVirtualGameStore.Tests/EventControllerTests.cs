@@ -14,7 +14,7 @@
         {
             using (var controller = new EventController(this.fixture.context))
             {
-                var result = controller.Index().Result as ViewResult;
+                var result = controller.Index() as ViewResult;
 
                 Assert.NotNull(result);
                 Assert.True(string.IsNullOrEmpty(result.ViewName) || result.ViewName == "Index");
@@ -26,7 +26,7 @@
         {
             using (var controller = new EventController(this.fixture.context))
             {
-                var result = controller.Details(1).Result as ViewResult;
+                var result = controller.Details(1) as ViewResult;
 
                 Assert.NotNull(result);
                 Assert.NotNull(result.Model);
@@ -49,7 +49,7 @@
                     Date = DateTime.Now
                 };
 
-                var result = controller.Create(createEvent).Result as ViewResult;
+                var result = controller.Create(createEvent) as ViewResult;
 
                 var resultEvent = this.fixture.context.Events.FirstOrDefault(g => g.Title == "Event6");
 
@@ -69,7 +69,7 @@
 
                 resultEvent.Description = "Description Changed";
 
-                var result = controller.Edit(resultEvent.RecordId, resultEvent).Result as ViewResult;
+                var result = controller.Edit(resultEvent.RecordId, resultEvent) as ViewResult;
 
                 Assert.Equal("Description Changed", resultEvent.Description);
             }
@@ -80,7 +80,7 @@
         {
             using (var controller = new EventController(this.fixture.context))
             {
-                var result = controller.DeleteConfirmed(3).Result as ViewResult;
+                var result = controller.DeleteConfirmed(3) as ViewResult;
 
                 var event3 = this.fixture.context.Events.FirstOrDefault(e => e.RecordId == 3);
 

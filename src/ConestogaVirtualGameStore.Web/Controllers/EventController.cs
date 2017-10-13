@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ConestogaVirtualGameStore.Web.Data;
-using ConestogaVirtualGameStore.Web.Models;
-
-namespace ConestogaVirtualGameStore.Web.Controllers
+﻿namespace ConestogaVirtualGameStore.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Data;
+    using Models;
+
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,21 +17,21 @@ namespace ConestogaVirtualGameStore.Web.Controllers
         }
 
         // GET: Event
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Events.ToListAsync());
+            return View(_context.Events.ToList());
         }
 
         // GET: Event/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .SingleOrDefaultAsync(m => m.RecordId == id);
+            var @event = _context.Events
+                .SingleOrDefault(m => m.RecordId == id);
             if (@event == null)
             {
                 return NotFound();
@@ -54,26 +51,26 @@ namespace ConestogaVirtualGameStore.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Date,RecordId")] Event @event)
+        public IActionResult Create([Bind("Title,Description,Date,RecordId")] Event @event)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(@event);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(@event);
         }
 
         // GET: Event/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.RecordId == id);
+            var @event = _context.Events.SingleOrDefault(m => m.RecordId == id);
             if (@event == null)
             {
                 return NotFound();
@@ -86,7 +83,7 @@ namespace ConestogaVirtualGameStore.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Title,Description,Date,RecordId")] Event @event)
+        public IActionResult Edit(long id, [Bind("Title,Description,Date,RecordId")] Event @event)
         {
             if (id != @event.RecordId)
             {
@@ -98,7 +95,7 @@ namespace ConestogaVirtualGameStore.Web.Controllers
                 try
                 {
                     _context.Update(@event);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,15 +114,15 @@ namespace ConestogaVirtualGameStore.Web.Controllers
         }
 
         // GET: Event/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public IActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .SingleOrDefaultAsync(m => m.RecordId == id);
+            var @event = _context.Events
+                .SingleOrDefault(m => m.RecordId == id);
             if (@event == null)
             {
                 return NotFound();
@@ -137,11 +134,11 @@ namespace ConestogaVirtualGameStore.Web.Controllers
         // POST: Event/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public IActionResult DeleteConfirmed(long id)
         {
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.RecordId == id);
+            var @event = _context.Events.SingleOrDefault(m => m.RecordId == id);
             _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
