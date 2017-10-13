@@ -1,5 +1,6 @@
 ﻿namespace ConestogaVirtualGameStore.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,7 @@
 
             var game = await _context.Games
                 .SingleOrDefaultAsync(m => m.RecordId == id);
+
             if (game == null)
             {
                 return NotFound();
@@ -57,6 +59,7 @@
         {
             if (ModelState.IsValid)
             {
+                game.ImageFileName = string.Empty;
                 _context.Add(game);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -96,6 +99,7 @@
             {
                 try
                 {
+                    game.ImageFileName = String.Empty;
                     _context.Update(game);
                     await _context.SaveChangesAsync();
                 }

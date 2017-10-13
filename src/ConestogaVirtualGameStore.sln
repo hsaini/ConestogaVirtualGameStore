@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConestogaVirtualGameStore.Web", "ConestogaVirtualGameStore.Web\ConestogaVirtualGameStore.Web.csproj", "{6796A9DD-6265-4A7A-AF74-A15E46957449}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConestogaVirtualGameStore.Web", "ConestogaVirtualGameStore.Web\ConestogaVirtualGameStore.Web.csproj", "{6796A9DD-6265-4A7A-AF74-A15E46957449}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConestogaVirtualGameStore.Tests", "ConestogaVirtualGameStore.Tests\ConestogaVirtualGameStore.Tests.csproj", "{835CC1ED-DBEA-40D6-9E9C-70C801BD0607}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6796A9DD-6265-4A7A-AF74-A15E46957449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6796A9DD-6265-4A7A-AF74-A15E46957449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6796A9DD-6265-4A7A-AF74-A15E46957449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835CC1ED-DBEA-40D6-9E9C-70C801BD0607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835CC1ED-DBEA-40D6-9E9C-70C801BD0607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835CC1ED-DBEA-40D6-9E9C-70C801BD0607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835CC1ED-DBEA-40D6-9E9C-70C801BD0607}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
