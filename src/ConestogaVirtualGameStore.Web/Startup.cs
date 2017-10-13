@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using ConestogaVirtualGameStore.Web.Data;
 using ConestogaVirtualGameStore.Web.Models;
 using ConestogaVirtualGameStore.Web.Services;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ConestogaVirtualGameStore.Web
 {
@@ -20,7 +19,6 @@ namespace ConestogaVirtualGameStore.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -65,8 +63,6 @@ namespace ConestogaVirtualGameStore.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-       
         }
     }
 }

@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConestogaVirtualGameStore.Web.Data;
 using ConestogaVirtualGameStore.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ConestogaVirtualGameStore.Web.Controllers
 {
-    [Authorize(Roles = "Employee")]
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
