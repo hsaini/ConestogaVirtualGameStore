@@ -1,3 +1,5 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ConestogaVirtualGameStore.Web.Models;
 namespace ConestogaVirtualGameStore.Web.Data
 {
     using Configuration;
@@ -12,17 +14,21 @@ namespace ConestogaVirtualGameStore.Web.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        public ApplicationDbContext() 
         {
-            base.OnModelCreating(builder);
-
-            builder.ApplyConfiguration(new GameConfiguration());
-            builder.ApplyConfiguration(new ReviewConfiguration());
-            builder.ApplyConfiguration(new EventConfiguration());
         }
 
-        public DbSet<Game> Games { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<Event> Events { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+            {
+                base.OnModelCreating(builder);
+
+                builder.ApplyConfiguration(new GameConfiguration());
+                builder.ApplyConfiguration(new ReviewConfiguration());
+                builder.ApplyConfiguration(new EventConfiguration());
+            }
+
+            public DbSet<Game> Games { get; set; }
+            public DbSet<Review> Reviews { get; set; }
+            public DbSet<Event> Events { get; set; }
+        }
     }
-}
