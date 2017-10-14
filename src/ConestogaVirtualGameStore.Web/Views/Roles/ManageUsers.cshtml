@@ -1,0 +1,18 @@
+﻿<h2>Manage User Roles</h2>
+@Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUsers")
+<hr />
+
+<h2>Role Add to User</h2>
+
+@using (Html.BeginForm("AddRoleToUser", "Roles"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        Username : @Html.TextBox("UserName")
+        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, String.Empty, new { @class = "extra-class" })
+    </p>
+
+    <input type="submit" value="Save" />
+}
