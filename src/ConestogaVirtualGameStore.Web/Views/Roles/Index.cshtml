@@ -12,14 +12,19 @@
         </tr>
     </thead>
     <tbody>
-@Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
+@Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUsers")
+        @ViewBag.Results 
 @foreach (var item in Model)
 {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { roleName = @item.Name })
+            </td>
     </tr>
-}
-    </tbody>
+}    </tbody>
 </table>
+
+
