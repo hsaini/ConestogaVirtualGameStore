@@ -16,49 +16,17 @@
     }
 </p>
 <table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Developer)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Publisher)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td class="image-column">
+                <img class="list-image" src="~/images/games/@item.ImageFileName" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Developer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publisher)
             </td>
             <td>
                 @if (User.Identity.IsAuthenticated)
@@ -70,7 +38,8 @@
                     }
                 }
                 
-                <a asp-action="Details" asp-route-id="@item.RecordId">Details</a> <br/>
+                <a asp-action="Details" asp-route-id="@item.RecordId">Details</a> |
+                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.RecordId">Buy</a> <br />
             </td>
         </tr>
 }

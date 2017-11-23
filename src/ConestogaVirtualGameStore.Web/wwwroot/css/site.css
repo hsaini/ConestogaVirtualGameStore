@@ -26,6 +26,28 @@
     margin: 15px;
 }
 
+/* Custom Styles */
+
+.navbar-brand {
+    padding: 4px 4px 4px 4px;
+}
+
+.login-button {
+    width: 360px;
+}
+
+.table-image {
+    width: 300px;
+}
+
+.list-image {
+    width: 150px;
+}
+
+.image-column {
+    width: 160px;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
@@ -39,10 +61,5 @@
         border-radius: 4px;
         padding: 5px;
         width: 150px;
-    }
-
-    .navbar-inverse {
-        background-color: #FFFFFF !important;
-        border-color: #FFFFFF;
     }
 }
