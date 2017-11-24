@@ -26,7 +26,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @item.Price.ToString("C")
             </td>
             <td>
                 @if (User.Identity.IsAuthenticated)
@@ -39,7 +39,7 @@
                 }
                 
                 <a asp-action="Details" asp-route-id="@item.RecordId">Details</a> |
-                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.RecordId">Buy</a> <br />
+                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.RecordId">Add To Cart</a> <br />
             </td>
         </tr>
 }

@@ -30,7 +30,13 @@
                 <a asp-action="Delete" asp-route-id="@Model.RecordId">Delete</a><br />
             }
         }
-        <a asp-controller="Cart" asp-action="Buy" asp-route-id="@Model.RecordId">Buy</a> <br />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("Add", "Wishlist")'">Add To Wishlist</button>
+        <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("Add", "Cart")'">Add To Cart</button>
     </div>
 </div>
 
