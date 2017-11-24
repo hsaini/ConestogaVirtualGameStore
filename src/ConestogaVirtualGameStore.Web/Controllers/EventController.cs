@@ -16,7 +16,7 @@
             _context = context;
         }
 
-        // GET: Event
+        // GET: Eent
         public IActionResult Index()
         {
             return View(_context.Events.ToList());
